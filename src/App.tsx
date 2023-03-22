@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Configuration, OpenAIApi } from "openai";
 import { config } from "dotenv";
-import './App.css';
+import './App.scss';
 
 const openAi = new OpenAIApi(
     new Configuration({
@@ -21,6 +21,7 @@ function App() {
         })
 
         if (response.data.choices[0].message != undefined) {
+            
             console.log(response.data.choices[0].message.content)
             seOutput(response.data.choices[0].message.content);
         }
@@ -34,19 +35,35 @@ function App() {
         if (e.keyCode === 13) {
             e.preventDefault();
             handleInput();
+            seOutput('')
         }
     }
+    if (output) {
+        return (
+            <div className="App">
+                <div className="chat-container">
+                    <textarea value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyDown} />
+                    <button onClick={handleInput}>Send</button>
+                    <div className="output-box">
+                        <p>{output}</p>
+                    </div>
 
-    return (
-        <div className="App">
-            <header className="App-header">
-                <textarea value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyDown} />
-                <button id="testtt" onClick={handleInput}>Send</button>
-                <p>{output}</p>
-            </header>
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div className="App">
+                <div className="chat-container">
+                    <textarea value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKeyDown} />
+                    <button onClick={handleInput}>Send</button>
+               
 
-        </div>
-    );
+                </div>
+            </div>
+        );
+    }
+    
 }
 
 export default App;
