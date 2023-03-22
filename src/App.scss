@@ -7,6 +7,11 @@
     align-items: center;
     background-color: black;
 
+    .loading {
+        color:white;
+
+    }
+
     .chat-container {
         width: 80%;
         display: flex;
@@ -29,46 +34,38 @@
             color: green;
             background-color: black;
             border: 1px solid green;
-            width:100%;
+            width: 100%;
+
             &:hover {
-                color:lightgreen;
-                cursor:pointer;
+                color: lightgreen;
+                cursor: pointer;
             }
         }
 
         .output-box {
-            p {
+            span {
                 color: green;
-                margin-top: 50px!important;
-                overflow: hidden; /* Ensures the content is not revealed until the animation */
-                border-right: .15em solid orange; /* The typwriter cursor */
-                white-space: nowrap; /* Keeps the content on a single line */
-                margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-                letter-spacing: .15em; /* Adjust as needed */
-                animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+                margin-top: 50px !important;
+                background: linear-gradient(-90deg,#00DFFC 5px,#0000 0) 10px 0, linear-gradient(#00DFFC 0 0) 0 0;
+                background-size: calc(var(--n)*1ch) 200%;
+                -webkit-background-clip: padding-box,text;
+                background-clip: padding-box,text;
+                background-repeat: no-repeat;
+                animation: b .7s infinite steps(1), t calc(var(--n)*.3s) steps(var(--n)) forwards;
             }
         }
     }
 }
 
-@keyframes typing {
+@keyframes t {
     from {
-        width: 0
-    }
-
-    to {
-        width: 100%
+        background-size: 0 200%
     }
 }
 
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-    from, to {
-        border-color: transparent
-    }
-
+@keyframes b {
     50% {
-        border-color: green;
+        background-position: 0 -100%,0 0
     }
 }
 
